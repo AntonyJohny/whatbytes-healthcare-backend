@@ -1,174 +1,155 @@
 # WhatBytes Healthcare Backend
 
-A secure healthcare backend API built using Django, Django REST Framework, PostgreSQL, and JWT authentication.
+A secure and scalable healthcare backend API built using **Django**, **Django REST Framework**, **PostgreSQL**, and **JWT authentication**.
+
+This project was developed as part of the **WhatBytes Full Stack Intern Assignment – Django Healthcare Backend**.
+
+The application provides APIs for:
+
+- User registration and authentication
+- JWT-based authentication
+- Patient management
+- Doctor management
+- Patient-doctor mappings
+- Input validation
+- Ownership and authorization
+- PostgreSQL database integration
+- Automated API tests
+
+---
 
 ## Tech Stack
 
-- Python
-- Django
-- Django REST Framework
-- PostgreSQL
-- SimpleJWT
-- Django ORM
-- PostgreSQL Driver
-- python-dotenv
+- **Python 3**
+- **Django**
+- **Django REST Framework**
+- **PostgreSQL**
+- **Django ORM**
+- **Simple JWT**
+- **python-dotenv**
+- **django-cors-headers**
+- **psycopg2-binary**
+
+---
 
 ## Features
 
-- User registration
-- JWT authentication
-- User login
-- Patient CRUD
-- Doctor CRUD
-- Patient-doctor mapping
-- Authentication and authorization
-- Patient ownership protection
-- Request validation
-- Duplicate mapping prevention
-- PostgreSQL database
-- Django Admin
+### Authentication
 
-## Project Structure
+- User registration
+- User login
+- JWT access and refresh tokens
+- Password hashing using Django's authentication system
+- Custom user model using email as the username
+- Protected API endpoints
+- Session authentication for Django REST Framework's browser interface
+
+### Patients
+
+Authenticated users can:
+
+- Create patients
+- View their patients
+- View individual patients
+- Update patients
+- Delete patients
+
+Patient records are associated with the user who created them.
+
+Users cannot access or modify patients belonging to another user.
+
+### Doctors
+
+Authenticated users can:
+
+- Create doctors
+- View doctors
+- View individual doctors
+- Update doctors
+- Delete doctors
+
+### Patient-Doctor Mappings
+
+Authenticated users can:
+
+- Assign doctors to patients
+- View all mappings available to them
+- View doctors assigned to a specific patient
+- Remove doctor assignments
+- Prevent duplicate patient-doctor assignments
+
+Users can only create or delete mappings involving their own patients.
+
+### Validation
+
+The API includes validation for:
+
+- Required fields
+- Email format
+- Duplicate email addresses
+- Password length
+- Patient ownership
+- Duplicate patient-doctor mappings
+- Doctor/patient relationships
+- Phone number format
+
+---
+
+# Project Structure
 
 ```text
 whatbytes-healthcare-backend/
 │
 ├── accounts/
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── managers.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
 ├── patients/
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
 ├── doctors/
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
 ├── mappings/
+│   ├── migrations/
+│   ├── admin.py
+│   ├── apps.py
+│   ├── models.py
+│   ├── serializers.py
+│   ├── tests.py
+│   ├── urls.py
+│   └── views.py
+│
 ├── config/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+│
 ├── manage.py
 ├── requirements.txt
 ├── .env.example
+├── .gitignore
 └── README.md
-```
-
-## Setup
-
-### 1. Clone the repository
-
-```bash
-git clone <repository-url>
-cd whatbytes-healthcare-backend
-```
-
-### 2. Create virtual environment
-
-```bash
-python -m venv venv
-```
-
-Windows:
-
-```bash
-venv\Scripts\activate
-```
-
-### 3. Install dependencies
-
-```bash
-pip install -r requirements.txt
-```
-
-### 4. Configure environment variables
-
-Create a `.env` file using `.env.example` as a reference.
-
-### 5. Configure PostgreSQL
-
-Create a PostgreSQL database and configure the database credentials in `.env`.
-
-### 6. Run migrations
-
-```bash
-python manage.py makemigrations
-python manage.py migrate
-```
-
-### 7. Create admin user
-
-```bash
-python manage.py createsuperuser
-```
-
-### 8. Start the server
-
-```bash
-python manage.py runserver
-```
-
-The API will be available at:
-
-```text
-http://127.0.0.1:8000/
-```
-
-## API Endpoints
-
-### Authentication
-
-```text
-POST /api/auth/register/
-POST /api/auth/login/
-POST /api/auth/token/refresh/
-```
-
-### Patients
-
-```text
-POST   /api/patients/
-GET    /api/patients/
-GET    /api/patients/<id>/
-PUT    /api/patients/<id>/
-DELETE /api/patients/<id>/
-```
-
-### Doctors
-
-```text
-POST   /api/doctors/
-GET    /api/doctors/
-GET    /api/doctors/<id>/
-PUT    /api/doctors/<id>/
-DELETE /api/doctors/<id>/
-```
-
-### Patient-Doctor Mappings
-
-```text
-POST   /api/mappings/
-GET    /api/mappings/
-GET    /api/mappings/patient/<patient_id>/
-DELETE /api/mappings/<id>/
-```
-
-## Authentication
-
-Protected endpoints require a JWT access token.
-
-Use the following HTTP header:
-
-```text
-Authorization: Bearer <access_token>
-```
-
-## Security
-
-- Passwords are securely hashed using Django's password hashing system.
-- JWT authentication is used for API authentication.
-- Patient records are restricted to their creator.
-- Duplicate patient-doctor mappings are prevented.
-- Sensitive configuration is stored using environment variables.
-
-## Database
-
-PostgreSQL is used as the application's relational database and Django ORM is used for database operations.
-
-## Testing
-
-The APIs can be tested using Postman or another REST API client.
-
-## Author
-
-Developed as part of the WhatBytes Full Stack Intern assignment.
