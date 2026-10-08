@@ -69,8 +69,10 @@ class PatientTests(APITestCase):
 
     def test_unauthenticated_user_cannot_access_patients(self):
         self.client.force_authenticate(user=None)
+        
+        url = reverse("patient-list-create")
 
-        response = self.client.get(self.patient_url)
+        response = self.client.get(url)
 
         self.assertIn(
             response.status_code,
